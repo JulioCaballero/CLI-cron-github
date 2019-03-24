@@ -11,7 +11,7 @@ console.log('');
 
 console.log(
     chalk.green(
-        figlet.textSync('Hola Mundo', {font: 'doom', horizontalLayout: 'full'})
+        figlet.textSync('Hola Mundo', {horizontalLayout: 'full'})
     )
 );
 

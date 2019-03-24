@@ -11,82 +11,78 @@ console.log('');
 
 console.log(
     chalk.green(
-        figlet.textSync('Hola Mundo', {font: 'doom', horizontalLayout: 'full'})
+        figlet.textSync('Hola Mundo', { horizontalLayout: 'full' })
     )
 );
 
-inquirer.prompt([
-    {
-        name: 'list',
-        type: 'list',
-        message: 'Selecciona la operción que requieras: ',
-        choices: [
-            {
-                name: 'Ingresar cuenta de Github',
-                type: 'checkbox',
-                message: 'registration',
-                value: '1'
-            },
-            {
-                name: 'Crear Repositorio',
-                type: 'checkbox',
-                message: 'create',
-                value: '2'
-            },
-            {
-                name: 'Clonar Repositorio',
-                type: 'checkbox',
-                message: 'clone',
-                value: '3'
-            },
-            {
-                name: 'Eliminar Repositorio',
-                type: 'checkbox',
-                message: 'delete',
-                value: '4'
-            },
-            {
-                name: 'Abrir Repositorio con Visual Studio Code (Merge)',
-                type: 'checkbox',
-                message: 'code',
-                value: '5'
-            },
-            {
-                name: 'Salir',
-                type: 'checkbox',
-                message: 'salir',
-                value: '6'
-            }
-        ]
-    }
-]).then(answers => {
-    console.log(answers);
-    switch(answers.list){
-        case '1':
-            registration()
-          break;
-        case '2':
-            create()
-          break;
-        case '3':
-            clone()
-          break;
-        case '4':
-            deleteShell()
-          break;
-        case '5':
-            code()
-          break;
-        default:
-          break;
-      } 
-    //  if (answers.list == 1){
-    //     pingShell()
-    // }
-});
+main();
 
-function registration(){
-   console.log('Llene los campos correctamente')
+function main(){
+    inquirer.prompt([
+        {
+            name: 'list',
+            type: 'list',
+            message: 'Seleccione la opcion que desea realizar: ',
+            choices: [
+                {
+                    name: 'Programar nueva tarea',
+                    type: 'checkbox',
+                    message: 'registration',
+                    value: '1'
+                },
+                {
+                    name: 'Ver las tareas en ejecución',
+                    type: 'checkbox',
+                    message: 'create',
+                    value: '2'
+                },
+                {
+                    name: 'Eliminar tarea actual',
+                    type: 'checkbox',
+                    message: 'clone',
+                    value: '3'
+                },
+                {
+                    name: 'Ayuda',
+                    type: 'checkbox',
+                    message: 'clone',
+                    value: '4'
+                },
+                {
+                    name: 'Salir',
+                    type: 'checkbox',
+                    message: 'salir',
+                    value: '5'
+                }
+            ]
+        }
+    ]).then(answers => {
+        console.log(answers);
+        switch (answers.list) {
+            case '1':
+                create()
+                break;
+            case '2':
+                read()
+                break;
+            case '3':
+                eliminarActual()
+                break;
+            case '4':
+                ayuda()
+                break;
+            default:
+                break;
+        }
+        //  if (answers.list == 1){
+        //     pingShell()
+        // }
+    });
+}
+
+
+function read() {
+    console.log('Llene los campos correctamente')
     inquirer.prompt([
         {
             name: 'email',
@@ -98,27 +94,60 @@ function registration(){
             type: 'password',
             message: 'Ingresa tu contraseña:'
         }
-    ]).then(answer=>{
+    ]).then(answer => {
         console.log(answer);
         shell.exec('ping ' + answer.ping)
     });
 }
 
-function create(){
-    console.log('Llene los campos correctamente')
-     inquirer.prompt([
-         {
-             name: 'email',
-             type: 'input',
-             message: 'Ingrese el nombre del Repositorio'
-         },
-         {
-             name: 'pwd',
-             type: 'password',
-             message: 'Ingresa tu contraseña:'
-         }
-     ]).then(answer=>{
-         console.log(answer);
-         shell.exec('ping ' + answer.ping)
-     });
- }
+function create() {
+    console.log('Llene los campos para la ejecución de la tarea:')
+    inquirer.prompt([
+        {
+            name: 'minutos',
+            type: 'input',
+            message: 'Ingresar los minutos: '
+        },
+        {
+            name: 'horas',
+            type: 'input',
+            message: 'Ingresa las horas:'
+        },
+        {
+            name: 'dias',
+            type: 'input',
+            message: 'Ingresa los días de la semana:'
+        },
+        {
+            name: 'meses',
+            type: 'input',
+            message: 'Ingresa los meses:'
+        },
+        {
+            name: 'diasMes',
+            type: 'input',
+            message: 'Ingresa los días del mes:'
+        },
+        {
+            name: 'url',
+            type: 'input',
+            message: 'Ingresa la url para el archivo:'
+        },
+        {
+            name: 'command',
+            type: 'input',
+            message: 'Ingresa el comando para ejecutar el archivo:'
+        },
+    ]).then(answer => {
+        console.log(answer);
+        //echo "0 17 * * * date >> /home/juliocaballero/Escritorio/Fecha.txt" |  crontab -
+        shell.exec(echo `${}`)
+    });
+}
+
+function ayuda(){
+    console.log('TIPS:')
+    console.log('utilizar * para indicar todo el tiempo ya se minutos horas etc..')
+    console.log('se puede utilizar - para indicar un rango ejem. 1-5')
+    console.log('Se puede utlizar')
+}
