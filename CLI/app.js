@@ -101,37 +101,59 @@ function create() {
         {
             name: 'minutos',
             type: 'input',
-            message: 'Ingresar los minutos: '
+            message: 'Ingresar los minutos: ',
+            validate: function validateFirstName(name){
+                return name !== '';
+            }       
         },
         {
             name: 'horas',
             type: 'input',
-            message: 'Ingresa las horas:'
+            message: 'Ingresa las horas:',
+            validate: function validateFirstName(name){
+                return name !== '';
+            }       
         },
         {
             name: 'dias',
             type: 'input',
-            message: 'Ingresa los días de la semana:'
+            message: 'Ingresa los días de la semana:',
+            validate: function validateFirstName(name){
+                return name !== '';
+            }       
+            
         },
         {
             name: 'meses',
             type: 'input',
-            message: 'Ingresa los meses:'
+            message: 'Ingresa los meses:',
+            validate: function validateFirstName(name){
+                return name !== '';
+            }       
         },
         {
             name: 'diasMes',
             type: 'input',
-            message: 'Ingresa los días del mes:'
+            message: 'Ingresa los días del mes:',
+            validate: function validateFirstName(name){
+                return name !== '';
+            }       
         },
         {
             name: 'url',
             type: 'input',
-            message: 'Ingresa la url para el archivo:'
+            message: 'Ingresa la url para el archivo:',
+            validate: function validateFirstName(name){
+                return name !== '';
+            }       
         },
         {
             name: 'command',
             type: 'input',
-            message: 'Ingresa el comando para ejecutar el archivo:'
+            message: 'Ingresa el comando para ejecutar el archivo:',
+            validate: function validateFirstName(name){
+                return name !== '';
+            }       
         },
     ]).then(answer => {
         console.log(answer);
