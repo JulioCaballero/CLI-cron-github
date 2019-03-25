@@ -25,13 +25,13 @@ function main(){
             message: 'Seleccione la opcion que desea realizar: ',
             choices: [
                 {
-                    name: 'Programar nueva tarea',
+                    name: 'Programar nueva tarea:',
                     type: 'checkbox',
                     message: 'registration',
                     value: '1'
                 },
                 {
-                    name: 'Ver las tareas en ejecución',
+                    name: 'Ver las tareas programadas:',
                     type: 'checkbox',
                     message: 'create',
                     value: '2'
@@ -82,22 +82,17 @@ function main(){
 
 
 function read() {
-    console.log('Llene los campos correctamente')
-    inquirer.prompt([
-        {
-            name: 'email',
-            type: 'input',
-            message: 'Ingresa tu correo:'
-        },
-        {
-            name: 'pwd',
-            type: 'password',
-            message: 'Ingresa tu contraseña:'
-        }
-    ]).then(answer => {
-        console.log(answer);
-        shell.exec('ping ' + answer.ping)
-    });
+    console.log('Tareas Programadas:')
+
+    shell.exec('crontab -l')
+    main()
+}
+
+function eliminarActual() {
+    console.log('Eliminar tarea actual:')
+
+    shell.exec('crontab -r')
+    main()
 }
 
 function create() {
@@ -141,7 +136,10 @@ function create() {
     ]).then(answer => {
         console.log(answer);
         //echo "0 17 * * * date >> /home/juliocaballero/Escritorio/Fecha.txt" |  crontab -
-        shell.exec(echo `${}`)
+        // shell.exec(`echo ${answer.minutos} ${answer.horas} ${answer.dias} ${answer.meses} ${answer.diasMes} 
+        // ${answer.command} ${answer.url} | crontab -`)
+        shell.exec('echo "'+`${answer.minutos} ${answer.horas} ${answer.dias} ${answer.meses} ${answer.diasMes} ${answer.command} ${answer.url}`+'" |  crontab -')
+        main();
     });
 }
 
@@ -149,5 +147,38 @@ function ayuda(){
     console.log('TIPS:')
     console.log('utilizar * para indicar todo el tiempo ya se minutos horas etc..')
     console.log('se puede utilizar - para indicar un rango ejem. 1-5')
-    console.log('Se puede utlizar')
+    console.log('Se puede utlizar / para repetir un tiempo ejemplo */5 se repetira cada 5(min,hrs,m etc)')
+    inquirer.prompt([
+        {
+            name: 'list',
+            type: 'list',
+            message: 'Seleccione la opcion que desea realizar: ',
+            choices: [
+                {
+                    name: 'Regresar al menu',
+                    type: 'checkbox',
+                    message: 'registration',
+                    value: '1'
+                },
+                {
+                    name: 'Salir del CLI',
+                    type: 'checkbox',
+                    message: 'create',
+                    value: '2'
+                }
+            ]
+        }
+    ]).then(answers => {
+        console.log(answers);
+        switch (answers.list) {
+            case '1':
+                main()
+                break;
+            default:
+                break;
+        }
+        //  if (answers.list == 1){
+        //     pingShell()
+        // }
+    });
 }
